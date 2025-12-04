@@ -15,7 +15,8 @@ class Program
         "echo",
         "type",
         "exit",
-        "pwd"
+        "pwd",
+        "cd"
     };
      while (true) 
         {
@@ -29,6 +30,17 @@ class Program
         if (string.IsNullOrEmpty(input) || input.ToLower() == "exit")
             {
                 break;
+            }
+        else if (command.ToLower() == "cd")
+            {
+                try
+                    {
+                        Directory.SetCurrentDirectory(argument);
+                    }
+                    catch
+                    {
+                        Console.WriteLine($"cd: {argument}: No such file or directory");
+                    }
             }
         else if (command.ToLower() == "pwd")
             {
