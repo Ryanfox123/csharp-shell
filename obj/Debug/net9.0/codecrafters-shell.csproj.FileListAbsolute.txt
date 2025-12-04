@@ -1,0 +1,15 @@
+/Users/ryan/projects/csharpshell/bin/Debug/net9.0/codecrafters-shell
+/Users/ryan/projects/csharpshell/bin/Debug/net9.0/codecrafters-shell.deps.json
+/Users/ryan/projects/csharpshell/bin/Debug/net9.0/codecrafters-shell.runtimeconfig.json
+/Users/ryan/projects/csharpshell/bin/Debug/net9.0/codecrafters-shell.dll
+/Users/ryan/projects/csharpshell/bin/Debug/net9.0/codecrafters-shell.pdb
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.GeneratedMSBuildEditorConfig.editorconfig
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.AssemblyInfoInputs.cache
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.AssemblyInfo.cs
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.csproj.CoreCompileInputs.cache
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.sourcelink.json
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.dll
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/refint/codecrafters-shell.dll
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.pdb
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/codecrafters-shell.genruntimeconfig.cache
+/Users/ryan/projects/csharpshell/obj/Debug/net9.0/ref/codecrafters-shell.dll

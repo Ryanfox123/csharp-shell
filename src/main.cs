@@ -1,4 +1,5 @@
 
+using codecrafters_shell.Commands;
 using codecrafters_shell.Helpers;
 using System.Diagnostics;
 
@@ -23,45 +24,43 @@ class Program
         {
         Console.Write("$ ");
         String? input = Console.ReadLine()?.Trim();
-        string[] parts = input.Split(' ', 2);
-        string command = parts[0];
-        string argument = parts.Length > 1 ? parts[1] : "";
+        var (cmd, args) = new ParsedCommands(input);
 
 
         if (string.IsNullOrEmpty(input) || input.ToLower() == "exit")
             {
                 break;
             }
-        else if (command.ToLower() == "cd")
+        else if (cmd.ToLower() == "cd")
             {
-                if (argument == "~")
+                if (args == "~")
                 {
                     Directory.SetCurrentDirectory(homeEnv);
                 } else 
                 {
                     try
                         {
-                            Directory.SetCurrentDirectory(argument);
+                            Directory.SetCurrentDirectory(args);
                         }
                         catch
                         {
-                            Console.WriteLine($"cd: {argument}: No such file or directory");
+                            Console.WriteLine($"cd: {args}: No such file or directory");
                         }
                 }
             }
-        else if (command.ToLower() == "pwd")
+        else if (cmd.ToLower() == "pwd")
             {
                 Console.WriteLine(Directory.GetCurrentDirectory());
             }
-        else if (command.ToLower() == "echo")
+        else if (cmd.ToLower() == "echo")
             {
-                Console.WriteLine($"{argument}");
+                Console.WriteLine($"{args}");
             }
-        else if (command.ToLower() == "type")
+        else if (cmd.ToLower() == "type")
             {
-                if (cmds.Contains(argument.ToLower()))
+                if (cmds.Contains(args.ToLower()))
                 {
-                    Console.WriteLine($"{argument} is a shell builtin");
+                    Console.WriteLine($"{args} is a shell builtin");
                 }
                 else
                 {
@@ -69,17 +68,17 @@ class Program
 
                     foreach (var dir in paths)
                     {
-                        var currSearch = Path.Join(dir, argument);
+                        var currSearch = Path.Join(dir, args);
                         if (File.Exists(currSearch) && ExecutableHelpers.IsExecutable(currSearch))
                         {
                             isFound = true;
-                            Console.WriteLine($"{argument} is {currSearch}");
+                            Console.WriteLine($"{args} is {currSearch}");
                             break;
                         }
                     }
                     if (!isFound)
                     {
-                    Console.WriteLine($"{argument}: not found");
+                    Console.WriteLine($"{args}: not found");
                     }
                 }
             } 
@@ -88,13 +87,13 @@ class Program
                 var isFound = false;
                 foreach (var dir in paths)
                     {
-                        var currSearch = Path.Join(dir, command);
+                        var currSearch = Path.Join(dir, cmd);
                         if (File.Exists(currSearch) && ExecutableHelpers.IsExecutable(currSearch))
                         {
                             isFound = true;
                             ProcessStartInfo start = new ProcessStartInfo();
-                            start.Arguments = argument;
-                            start.FileName = command;
+                            start.Arguments = args;
+                            start.FileName = cmd;
                             start.RedirectStandardOutput = true;
                             start.RedirectStandardError = true; 
                             start.UseShellExecute = false;
