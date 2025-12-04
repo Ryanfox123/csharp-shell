@@ -16,7 +16,7 @@ namespace codecrafters_shell.Helpers
         {
             return IsWindowsExecutable(path);
         }
-        else // macOS / Linux / Unix
+        else
         {
             return IsUnixExecutable(path);
         }
