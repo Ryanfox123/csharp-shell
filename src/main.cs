@@ -10,8 +10,6 @@ class Program
     var pathEnv = System.Environment.GetEnvironmentVariable("PATH");
     string[] paths = pathEnv.Split(Path.PathSeparator);
     var homeEnv = System.Environment.GetEnvironmentVariable("HOME");
-    string[] homePaths = homeEnv.Split(Path.PathSeparator);
-
 
     var cmds = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
     {
@@ -49,7 +47,7 @@ class Program
                         {
                             Console.WriteLine($"cd: {argument}: No such file or directory");
                         }
-                    }
+                }
             }
         else if (command.ToLower() == "pwd")
             {
