@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("codecrafters-shell")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6ea99c1e7b58d873573f3d1ff87fcacb4c27a01c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9c454c760cd59c30e3a3f6ee7f1cc7f07cdc84bf")]
 [assembly: System.Reflection.AssemblyProductAttribute("codecrafters-shell")]
 [assembly: System.Reflection.AssemblyTitleAttribute("codecrafters-shell")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

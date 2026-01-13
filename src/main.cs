@@ -10,6 +10,7 @@ class Program
     
     var pathEnv = System.Environment.GetEnvironmentVariable("PATH");
     string[] paths = pathEnv.Split(Path.PathSeparator);
+    
     var homeEnv = System.Environment.GetEnvironmentVariable("HOME");
 
     var cmds = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
