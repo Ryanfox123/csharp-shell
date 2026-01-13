@@ -1,8 +1,4 @@
-
-using codecrafters_shell.Commands;
-using codecrafters_shell.Helpers;
 using codecrafters_shell.src;
-using System.Diagnostics;
 
 class Program
 {
