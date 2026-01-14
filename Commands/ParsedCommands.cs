@@ -1,25 +1,63 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
 
 namespace codecrafters_shell.Commands
 {
-    public class ParsedCommands
-    {
-        public string Command { get; set; }
-        public string Argument { get; set; }
+public class ParsedCommands
+{
+    public string Command { get; }
+    public List<string> Arguments { get; }
 
-        public ParsedCommands(string input)
+    public ParsedCommands(string input)
+    {
+        var tokens = Parse(input);
+
+        Command = tokens.Count > 0 ? tokens[0] : "";
+        Arguments = tokens.Skip(1).ToList();
+    }
+
+private static List<string> Parse(string input)
+{
+    var tokens = new List<string>();
+    var current = new StringBuilder();
+    bool inSingleQuotes = false;
+
+    for (int i = 0; i < input.Length; i++)
+    {
+        char c = input[i];
+
+        if (c == '\'')
         {
-            var parts = input.Trim().Split(' ', 2);
-            Command = parts[0];
-            Argument = parts.Length > 1 ? parts[1] : "";
+            inSingleQuotes = !inSingleQuotes;
+            continue;
         }
-        public void Deconstruct(out string cmd, out string args)
+
+        if (char.IsWhiteSpace(c) && !inSingleQuotes)
+        {
+            if (current.Length > 0)
+            {
+                tokens.Add(current.ToString());
+                current.Clear();
+            }
+        }
+        else
+        {
+            current.Append(c);
+        }
+    }
+
+    if (current.Length > 0)
+        tokens.Add(current.ToString());
+
+    return tokens;
+}
+
+
+        public void Deconstruct(out string cmd, out List<string> args)
         {
             cmd = Command;
-            args = Argument;
+            args = Arguments;
         }
     }
 }

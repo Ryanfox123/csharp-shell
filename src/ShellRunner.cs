@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using codecrafters_shell.Commands;
 using codecrafters_shell.Helpers;
 using System.Diagnostics;
+using System.Text;
 
 namespace codecrafters_shell.src
 {
@@ -31,29 +32,35 @@ namespace codecrafters_shell.src
                     
                     var (cmd, args) = new ParsedCommands(input);
                     cmd = cmd.ToLower();
+                    var jointArgs = String.Join(" ", args.ToArray());
 
                     switch (cmd)
                         {
                             case "cd":
-                                changeDir(args);
+                                changeDir(jointArgs);
                                 break;
                             case "pwd":
                                 Console.WriteLine(Directory.GetCurrentDirectory());
                                 break;
                             case "echo":
-                                Console.WriteLine($"{args}");
+                                Console.WriteLine($"{jointArgs}");
                                 break;
                             case "type":
-                                typeCommand(args);
+                                typeCommand(jointArgs);
+                                break;
+                            case "cat":
+                                catCommand(args);
                                 break;
                             default:
-                                findAndRunExecutable(args, cmd, input);
+                                findAndRunExecutable(jointArgs, cmd, input);
                                 break;
                         }
                 }
         }
         public void changeDir(string args)
-        {
+        {   
+            
+    
             if (args == "~")
                 {
                     Directory.SetCurrentDirectory(_homeEnv);
@@ -128,6 +135,20 @@ namespace codecrafters_shell.src
                 {
                     Console.WriteLine($"{input}: command not found");
                 }
+        }
+        public void catCommand(List<string> args)
+        {
+            foreach (var path in args)
+            {
+                if (File.Exists(path))
+                {
+                    Console.Write(File.ReadAllText(path));
+                } else
+                {
+                    Console.WriteLine($"cat: {path}: No such file");
+                }
+                
+            }
         }
     }
 }
