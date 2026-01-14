@@ -22,18 +22,28 @@ private static List<string> Parse(string input)
     var tokens = new List<string>();
     var current = new StringBuilder();
     bool inSingleQuotes = false;
+    bool inDoubleQuotes = false;
+    bool isEscaped = false;
 
     for (int i = 0; i < input.Length; i++)
     {
         char c = input[i];
-
-        if (c == '\'')
+        if (isEscaped)
         {
-            inSingleQuotes = !inSingleQuotes;
+            current.Append(c);
+            isEscaped = false;
             continue;
         }
-
-        if (char.IsWhiteSpace(c) && !inSingleQuotes)
+        if (c == '\"')
+            inDoubleQuotes = !inDoubleQuotes;
+        else if (c == '\'' && !inDoubleQuotes)
+            inSingleQuotes = !inSingleQuotes;
+        else if (c == '\\' && inDoubleQuotes)
+            {
+            isEscaped = true;
+            continue;
+            }
+        else if (char.IsWhiteSpace(c) && !inSingleQuotes && !inDoubleQuotes)
         {
             if (current.Length > 0)
             {
@@ -45,6 +55,7 @@ private static List<string> Parse(string input)
         {
             current.Append(c);
         }
+
     }
 
     if (current.Length > 0)
