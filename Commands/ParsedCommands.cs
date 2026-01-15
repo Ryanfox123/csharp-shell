@@ -30,10 +30,28 @@ private static List<string> Parse(string input)
     for (int i = 0; i < input.Length; i++)
     {
         char c = input[i];
-        if (c == '\\' && inDoubleQuotes)
+
+        if (c == '\'' && !inSingleQuotes && !inDoubleQuotes)
         {
-            current.Append(c);
+            inSingleQuotes = true;
             continue;            
+        }
+
+        if (c == '"' && !inDoubleQuotes && !inSingleQuotes)
+        {
+            inDoubleQuotes = true;
+            continue;            
+        }
+
+        if (inSingleQuotes)
+        {
+            if (c == '\'')
+            {
+                inSingleQuotes = false;
+                continue;
+            }
+            current.Append(c);
+            continue;
         }
         if (isEscaped)
         {
@@ -41,15 +59,31 @@ private static List<string> Parse(string input)
             isEscaped = false;
             continue;
         }
-        if (c == '\"')
-            inDoubleQuotes = !inDoubleQuotes;
-        else if (c == '\'' && !inDoubleQuotes)
-            inSingleQuotes = !inSingleQuotes;
-        else if (c == '\\')
+        if (inDoubleQuotes)
+        {
+            if (c == '"')
             {
-            isEscaped = true;
-            continue;
+                inDoubleQuotes = false;
+                continue;            
             }
+            if (c == '\\' && i + 1 < input.Length)
+            {
+                char next = input[i + 1];
+                if (next == '"' || next == '\\' || next == '$' || next == '`')
+                {
+                    i++;
+                    current.Append(next);
+                    continue;
+                }
+} 
+        }
+        if (!inSingleQuotes && !inDoubleQuotes && c == '\\')
+        {
+            i++;
+            if (i < input.Length)
+                current.Append(input[i]);
+            continue;
+        }
         else if (char.IsWhiteSpace(c) && !inSingleQuotes && !inDoubleQuotes)
         {
             if (current.Length > 0)
