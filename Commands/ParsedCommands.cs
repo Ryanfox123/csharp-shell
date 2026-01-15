@@ -19,6 +19,8 @@ public class ParsedCommands
 
 private static List<string> Parse(string input)
 {
+    var safeChars = new List<char>(['"', '\\', '$', '`', '\n']);
+
     var tokens = new List<string>();
     var current = new StringBuilder();
 
@@ -69,10 +71,10 @@ private static List<string> Parse(string input)
             if (c == '\\' && i + 1 < input.Length)
             {
                 char next = input[i + 1];
-                if (next == '"' || next == '\\' || next == '$' || next == '`')
+                if (next == '"' || next == '\\' || next == '`' || next == '$' || next == '\n')
                 {
-                    i++;
                     current.Append(next);
+                    i++;
                     continue;
                 }
 } 
@@ -96,7 +98,6 @@ private static List<string> Parse(string input)
         {
             current.Append(c);
         }
-
     }
 
     if (current.Length > 0)
